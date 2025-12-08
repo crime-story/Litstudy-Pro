@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1000px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": 320, "label": "Stefan Hegselmann", "labelHighlightBold": true, "shape": "dot", "size": 100.0, "title": "Stefan Hegselmann", "x": -0.004665445391393875, "y": 1.0}, {"color": "#97c2fc", "id": 321, "label": "Helen Zhou", "labelHighlightBold": true, "shape": "dot", "size": 49.333335876464844, "title": "Helen Zhou", "x": 0.07777228512943574, "y": -0.45099956000987423}, {"color": "#97c2fc", "id": 322, "label": "Elizabeth Healey", "labelHighlightBold": true, "shape": "dot", "size": 43.0, "title": "Elizabeth Healey", "x": -0.6134379414449659, "y": -0.11958326110512373}, {"color": "#97c2fc", "id": 323, "label": "Trenton Chang", "labelHighlightBold": true, "shape": "dot", "size": 36.66666793823242, "title": "Trenton Chang", "x": 0.2413658592595835, "y": -0.02240805682829503}, {"color": "#97c2fc", "id": 324, "label": "Caleb Ellington", "labelHighlightBold": true, "shape": "dot", "size": 30.33333396911621, "title": "Caleb Ellington", "x": -0.1928867605335668, "y": -0.2530552223652703}, {"color": "#97c2fc", "id": 325, "label": "Vishwali Mhasawade", "labelHighlightBold": true, "shape": "dot", "size": 24.0, "title": "Vishwali Mhasawade", "x": -0.3815131403742134, "y": -0.23209602916740038}, {"color": "#97c2fc", "id": 326, "label": "Sana Tonekaboni", "labelHighlightBold": true, "shape": "dot", "size": 17.666667938232422, "title": "Sana Tonekaboni", "x": -0.21686667120590933, "y": 0.03149450924718766}, {"color": "#97c2fc", "id": 327, "label": "Peniel N. Argaw", "labelHighlightBold": true, "shape": "dot", "size": 11.333333969116211, "title": "Peniel N. Argaw", "x": -0.08293612062893024, "y": -0.007356787645151916}, {"color": "#97c2fc", "id": 328, "label": "Haoran Zhang 0003", "labelHighlightBold": true, "shape": "dot", "size": 5.0, "title": "Haoran Zhang 0003", "x": 0.012202623179092131, "y": -0.11545138316546218}, {"color": "#97c2fc", "id": 490, "label": "Antonio Parziale", "labelHighlightBold": true, "shape": "dot", "size": 43.0, "title": "Antonio Parziale", "x": 0.49541344284564753, "y": -0.2969606692801961}, {"color": "#97c2fc", "id": 491, "label": "Divya Shanmugam", "labelHighlightBold": true, "shape": "dot", "size": 36.66666793823242, "title": "Divya Shanmugam", "x": 0.6398267188336244, "y": 0.15047641445986604}, {"color": "#97c2fc", "id": 492, "label": "Shengpu Tang", "labelHighlightBold": true, "shape": "dot", "size": 30.33333396911621, "title": "Shengpu Tang", "x": -0.016089463571015913, "y": 0.2173446544685516}, {"color": "#97c2fc", "id": 493, "label": "Mercy Nyamewaa\nAsiedu", "labelHighlightBold": true, "shape": "dot", "size": 24.0, "title": "Mercy Nyamewaa Asiedu", "x": 0.2679607806281198, "y": 0.11935662961309786}, {"color": "#97c2fc", "id": 494, "label": "Serina Chang", "labelHighlightBold": true, "shape": "dot", "size": 17.666667938232422, "title": "Serina Chang", "x": -0.2485348509319395, "y": 0.0660134175744759}, {"color": "#97c2fc", "id": 495, "label": "Tom Hartvigsen", "labelHighlightBold": true, "shape": "dot", "size": 11.333333969116211, "title": "Tom Hartvigsen", "x": 0.13353730314407095, "y": 0.06896946745342546}, {"color": "#97c2fc", "id": 496, "label": "Harvineet Singh", "labelHighlightBold": true, "shape": "dot", "size": 5.0, "title": "Harvineet Singh", "x": -0.11114861893764345, "y": -0.15574412324983034}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": 321, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 322, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 322, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 323, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 323, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 323, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 324, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 324, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 324, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 324, "title": "1", "to": 323, "width": 1}, {"arrows": "to", "from": 325, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 325, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 325, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 325, "title": "1", "to": 323, "width": 1}, {"arrows": "to", "from": 325, "title": "1", "to": 324, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 323, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 324, "width": 1}, {"arrows": "to", "from": 326, "title": "1", "to": 325, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 323, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 324, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 325, "width": 1}, {"arrows": "to", "from": 327, "title": "1", "to": 326, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 321, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 322, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 323, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 324, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 325, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 326, "width": 1}, {"arrows": "to", "from": 328, "title": "1", "to": 327, "width": 1}, {"arrows": "to", "from": 490, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 491, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 491, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 492, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 492, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 492, "title": "1", "to": 491, "width": 1}, {"arrows": "to", "from": 493, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 493, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 493, "title": "1", "to": 491, "width": 1}, {"arrows": "to", "from": 493, "title": "1", "to": 492, "width": 1}, {"arrows": "to", "from": 494, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 494, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 494, "title": "1", "to": 491, "width": 1}, {"arrows": "to", "from": 494, "title": "1", "to": 492, "width": 1}, {"arrows": "to", "from": 494, "title": "1", "to": 493, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 491, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 492, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 493, "width": 1}, {"arrows": "to", "from": 495, "title": "1", "to": 494, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 320, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 490, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 491, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 492, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 493, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 494, "width": 1}, {"arrows": "to", "from": 496, "title": "1", "to": 495, "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"configure": {"enabled": false}, "nodes": {"font": {"size": 7}}, "edges": {"smooth": true, "color": {"opacity": 0.25}}, "physics": {"enabled": true, "forceAtlas2Based": {"springLength": 100}, "solver": "forceAtlas2Based"}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
