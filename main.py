@@ -90,7 +90,9 @@ if sursa_date == "Căutare Live (DBLP)":
                 st.error(f"Eroare: {e}")
 
 else:
-    uploaded_file = st.sidebar.file_uploader("Încarcă fișier (BIB, RIS, CSV)", type=["bib", "ris", "csv"])
+    uploaded_file = st.sidebar.file_uploader(
+        "Încarcă fișier (BibTeX, RIS, CSV)", 
+        type=["bib", "ris", "csv"])
     if uploaded_file:
         temp_name = f"temp_{uploaded_file.name}"
         with open(temp_name, "wb") as f:
