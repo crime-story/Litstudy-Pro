@@ -251,6 +251,18 @@ if docs:
     st.sidebar.progress(procent)
     st.sidebar.info(f"Se analizează: **{len(filtered_docs)}** / {len(docs)} articole")
 
+docs = st.session_state.get('docs', [])
+
+def author_name(a):
+    # Daca autorul e un obiect cu atribut 'name'
+    try:
+        return a.name
+    except Exception:
+        # Daca e un dict / str / alt tip
+        if isinstance(a, dict) and 'name' in a:
+            return a['name']
+        return str(a)
+
 # --- INTERFATA PRINCIPALA ---
 if filtered_docs:
     tab1, tab2, tab3, tab4 = st.tabs([
@@ -436,7 +448,7 @@ if filtered_docs:
             data_export.append({
                 "Titlu": d.title,
                 "An": d.publication_year,
-                "Autori": ", ".join([a.name for a in d.authors]) if d.authors else "",
+                "Autori": ", ".join([author_name(a) for a in d.authors]) if d.authors else "",
                 "Sursă": d.source if hasattr(d, 'source') else ""
             })
         df = pd.DataFrame(data_export)
