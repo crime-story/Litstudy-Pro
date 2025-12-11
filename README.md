@@ -11,6 +11,13 @@ Articol Litstudy: https://www.sciencedirect.com/science/article/pii/S23527110220
 - Horceag Andrei 506
 - Pasăre Roxana-Francisca​ 506
 
+## Demo al aplicației
+Puteți vizualiza live demo-ul aplicației aici: [Demo Litstudy Pro](https://youtu.be/fNvYmaUuIEA)
+
+Sau dacă apasați pe imaginea de mai jos:
+
+[![Video - Demo Litstudy Pro](https://github.com/user-attachments/assets/564ea341-bd07-469e-97dd-80ec9d668268)](https://youtu.be/fNvYmaUuIEA)
+
 ## 🚀 Funcționalități Cheie
 ### 1. Ingestie și Normalizare de Date
 - **Căutare Live:** Integrare cu API-ul **DBLP** pentru căutarea în timp real a articolelor științifice.
